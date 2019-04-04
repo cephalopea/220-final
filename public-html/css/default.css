@@ -15,7 +15,11 @@ a:active {
 }
 
 body {
-
+    background-color: black;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
 }
 
 h1 {
@@ -43,7 +47,7 @@ h6 {
 }
 
 p {
-
+    
 }
 
 li {
@@ -55,7 +59,26 @@ ul {
 }
 
 * {
-    
+    color: white;
+    font-family: "Press Start 2P", serif;
 }
 
 /*above are html tags, below are custom classes*/
+
+.auth {
+    text-align: left;
+    position: relative;
+    left: 0;
+}
+
+.history {
+    text-align: right;
+    position: relative;
+    right: 0;
+}
+
+.user {
+    text-align: center;
+    cursor: pointer;
+    color: lawngreen;
+}
