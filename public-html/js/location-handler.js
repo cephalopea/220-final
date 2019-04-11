@@ -2,12 +2,12 @@ var utils = require("./client-utils.js");
 
 var location = None;
 
-function UpdateBackground() {
-    
+function UpdateBackground(backgroundObj) {
+    return backgroundObj["image"];
 }
 
-function UpdateSound() {
-    
+function UpdateSound(soundObj) {
+    return soundObj[""]
 }
 
 function CheckLocation(currNode) {
