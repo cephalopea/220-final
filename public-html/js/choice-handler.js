@@ -1,4 +1,4 @@
-var nodeRetriever = require("./node-retriever.js");
+var utils = require("./client-utils.js");
 
 function SelectOption() {
     this.classList.remove("user");
@@ -18,7 +18,7 @@ function SelectOption() {
             elems[0].parentNode.removeChild(elems[0]);
         }
     }
-    nodeRetriever.GetNextNodes(this.innerHTML, LoadNodes)
+    utils.SendXML(LoadNodes, {"request": "GetNextNodes", "text": this.innerHTML});
 }
 
 function AddUnderline() {
@@ -52,10 +52,6 @@ function LoadNodes(nodesToLoad) {
         elem.addEventListener("mouseover", AddUnderline);
         elem.addEventListener("mouseout", RemoveUnderline);
     }
-
-var userElems = document.getElementsByClassName("user");
-for (let elem of userElems) {
-    elem.addEventListener("click", SelectOption);
-    elem.addEventListener("mouseover", AddUnderline);
-    elem.addEventListener("mouseout", RemoveUnderline);
 }
+
+utils.SendXML(LoadNodes, {"request": "GetNextNodes", "text": "\ROOT"});
