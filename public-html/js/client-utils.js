@@ -11,7 +11,7 @@ function QueryToString(obj) {
     return queryString.slice(0,-1);
 }
 
-function SendXML(callback, request) {
+function SendXML(request, callback) {
     //create new ajax
     var xmlhttp = new XMLHttpRequest();
     //load album names when ajax request is received

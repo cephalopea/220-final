@@ -1,12 +1,12 @@
 var utils = require("./server-utils.js");
 var fs = require("fs");
-//var sampleNode = {"id": 1, "parent": 0, "type": "user", "text": "I spin around in a circle."};
+//var sampleNode = {"id": 1, "parent": 0, "type": "user", "text": "I spin around in a circle.", "location": "field"};
 var txtDB = "/publichtml/txt/fake-db.txt";
 
 function LoadAllNodes(filepath) {
     //assumes txt file is formatted with each node on a newline, commas between key/val pairs, and = between key and value (no colon)
     //sample:
-    //id=1,parent=0,type=user,text=I spin around in a circle.
+    //id=1,parent=0,type=user,text=I spin around in a circle.,location=field
     var finalNodes = [];
     var nodeDoc = fs.readFileSync(filepath).toString();
     var addNodes = nodeDoc.split("\n");

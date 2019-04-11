@@ -1,4 +1,5 @@
 var utils = require("./client-utils.js");
+var loc = require("./location-handler.js");
 
 function SelectOption() {
     this.classList.remove("user");
@@ -18,7 +19,7 @@ function SelectOption() {
             elems[0].parentNode.removeChild(elems[0]);
         }
     }
-    utils.SendXML(LoadNodes, {"request": "GetNextNodes", "text": this.innerHTML});
+    utils.SendXML({"request": "GetNextNodes", "text": this.innerHTML}, LoadNodes);
 }
 
 function AddUnderline() {
@@ -34,6 +35,7 @@ function LoadNodes(nodesToLoad) {
     var authNodes = nodesToLoad.filter(node => {
         return (node["type"] == "auth");
     })
+    var authNode = authNodes[0]; //should only ever be one auth node at a time
     var userNodes = nodesToLoad.filter(node => {
         return (node["type"] == "user");
     })
@@ -52,6 +54,14 @@ function LoadNodes(nodesToLoad) {
         elem.addEventListener("mouseover", AddUnderline);
         elem.addEventListener("mouseout", RemoveUnderline);
     }
+    return authNode;
 }
 
-utils.SendXML(LoadNodes, {"request": "GetNextNodes", "text": "\ROOT"});
+function UpdateBackground(backgroundObj) {
+    
+}
+
+function init() {
+    authNodes = utils.SendXML(LoadNodes, {"request": "GetNextNodes", "text": "\ROOT"});
+    loc.CheckLocation(authNode);
+}

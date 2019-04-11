@@ -9,7 +9,7 @@ function ProcessQuery(query, res) {
         case "GetNextNodes":
             nodeRetriever.GetNextNodes(res, query["text"]);
             break;
-        case "UpdatePhoto":
+        case "UpdateBackground":
             //write a function for this
             break;
         case "UpdateSound":
