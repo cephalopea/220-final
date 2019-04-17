@@ -7,8 +7,8 @@ function UpdateBackground(backgroundObj) {
 }
 
 function UpdateSound(soundObj) {
-    return soundObj[""]
-}
+    return soundObj["soundfile"]
+l}
 
 function CheckLocation(currNode) {
     if (location != currNode["location"]) {

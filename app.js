@@ -3,6 +3,7 @@ var http = require('http');
 var url = require('url');
 var utils = require('./server-utils.js');
 var nodeRetriever = require("./node-retriever.js");
+var ambRetriever = require("./ambiance-retriever.js");
 
 function ProcessQuery(query, res) {
     switch (query["request"]) {
@@ -10,10 +11,10 @@ function ProcessQuery(query, res) {
             nodeRetriever.GetNextNodes(res, query["text"]);
             break;
         case "UpdateBackground":
-            //write a function for this
+            //write a function for this- should be in ambretriever
             break;
         case "UpdateSound":
-            //write a function for this
+            //write a function for this- should be in ambretriever
             break;
         default:
             var errObj = {message: "Query not supported"};
