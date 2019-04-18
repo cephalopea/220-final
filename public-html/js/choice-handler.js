@@ -62,6 +62,13 @@ function UpdateBackground(backgroundObj) {
 }
 
 function init() {
-    authNodes = utils.SendXML(LoadNodes, {"request": "GetNextNodes", "text": "\ROOT"});
-    loc.CheckLocation(authNode);
+    //uncomment these next two lines and remove the rest once database/txt file is implemented
+    //authNodes = utils.SendXML(LoadNodes, {"request": "GetNextNodes", "text": "\ROOT"});
+    //loc.CheckLocation(authNode);
+    var userNodes = document.getElementsByClassName("user");
+    for (let node of userNodes) {
+        node.addEventListener("click", SelectOption);
+        node.addEventListener("mouseover", AddUnderline);
+        node.addEventListener("mouseout", RemoveUnderline);
+    }
 }

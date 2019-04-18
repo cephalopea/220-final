@@ -2,8 +2,9 @@
 var http = require('http');
 var url = require('url');
 var utils = require('./server-utils.js');
+var fileServer = require('./fileserve.js');
 var nodeRetriever = require("./node-retriever.js");
-var ambRetriever = require("./ambiance-retriever.js");
+//var ambRetriever = require("./ambiance-retriever.js");
 
 function ProcessQuery(query, res) {
     switch (query["request"]) {
@@ -26,6 +27,11 @@ function ProcessQuery(query, res) {
 function ServeStuff(req, res) {
     //extracts possible query from req
     var query = url.parse(req.url).query;
+    var filepath = url.parse(req.url).pathname.substring(1);
+    if (filepath) {
+        //calls ServeFile to actually serve the file to the client
+        fileServer.ServeFile(filepath, res);
+    }
     if (query) {
         //parse the query into a dictionary
         query = utils.StringToQuery(query);
