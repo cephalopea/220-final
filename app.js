@@ -6,42 +6,37 @@ var fileServer = require('./fileserve.js');
 var nodeRetriever = require("./node-retriever.js");
 //var ambRetriever = require("./ambiance-retriever.js");
 
-function ProcessQuery(query, res) {
-    switch (query["request"]) {
-        case "GetNextNodes":
-            nodeRetriever.GetNextNodes(res, query["text"]);
+function ProcessQuery(query, res) { //handle queries
+    switch (query["request"]) { //switch case that looks at the request portion of the query
+        case "GetNextNodes": //if the request is GetNextNodes
+            nodeRetriever.GetNextNodes(res, query["text"]); //get the child nodes of the user selected parent
             break;
-        case "UpdateBackground":
+        case "UpdateBackground": //if the request is UpdateBackground
             //write a function for this- should be in ambretriever
             break;
-        case "UpdateSound":
+        case "UpdateSound": //if the request is UpdateSound
             //write a function for this- should be in ambretriever
             break;
-        default:
-            var errObj = {message: "Query not supported"};
-            utils.sendJSONObj(res, 500, errObj);
+        default: //otherwise there's an unrecognized request
+            var errObj = {message: "Query not supported"}; //create error msg
+            utils.sendJSONObj(res, 500, errObj); //send error msg via json
             break;
     }
 }
 
-function ServeStuff(req, res) {
+function ServeStuff(req, res) { //serves stuff
     //extracts possible query from req
-    var query = url.parse(req.url).query;
-    var filepath = url.parse(req.url).pathname.substring(1);
-    if (filepath) {
-        //calls ServeFile to actually serve the file to the client
-        fileServer.ServeFile(filepath, res);
+    var query = url.parse(req.url).query; //if there's a query, put it here
+    var filepath = url.parse(req.url).pathname.substring(1); //if there's a filepath, put it here
+    if (filepath) { //if there's a filepath
+        fileServer.ServeFile(filepath, res); //serve that file to the client
     }
-    if (query) {
-        //parse the query into a dictionary
-        query = utils.StringToQuery(query);
-        //call a function to deal with queries
-        ProcessQuery(query, res);
+    if (query) { //if there's a query
+        query = utils.StringToQuery(query); //parse the query into a dictionary and replace query with the parsed version
+        ProcessQuery(query, res); //process the parsed query
     }
 }
 
-//creates a server
-var server = http.createServer(ServeStuff);
+var server = http.createServer(ServeStuff); //creates a server
 
-//listens for an incoming request from the client
-server.listen(8080);
+server.listen(8080); //listens for an incoming request from the client

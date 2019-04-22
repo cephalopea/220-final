@@ -1,22 +1,15 @@
-//parses query portion of url
-exports.StringToQuery = (query) => {
-    //split url query at ampersands to separate out key/val pairs
-    query = query.split("&");
-    //create empty dict to store key/values
-    var queryObj = {};
-    //for each split piece of url query (aka gary)
-    query.forEach(gary => {
-        //split gary into a key (0) and a value (1)
-        garry = gary.split("=");
-        //add the key and value into queryObj
-        queryObj[garry[0]] = garry[1];
+exports.StringToQuery = (query) => { //parses query portion of url
+    query = query.split("&"); //split url query at ampersands to separate out key/val pairs
+    var queryObj = {}; //create empty dict to store key/values
+    query.forEach(queryChunk => { //for each chunk of url query
+        keyVal = queryChunk.split("="); //split query chunk into a key (0) and a value (1)
+        queryObj[keyVal[0]] = keyVal[1]; //add the key and value into queryObj
     })
-    //once everything is parsed, return queryObj
-    return queryObj;
+    return queryObj; //once everything is parsed, return queryObj
 }
 
 exports.sendJSONObj = (res, status, data) => {
-    res.writeHead(status, {"Content-Type": "application/json"});
-    res.write(JSON.stringify(data));
-    res.end();
+    res.writeHead(status, {"Content-Type": "application/json"}); //write the head with status and content type
+    res.write(JSON.stringify(data)); //write the stringified json obj
+    res.end(); //end
 }

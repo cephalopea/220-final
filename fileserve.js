@@ -2,9 +2,8 @@
 var fs = require('fs');
 var path = require('path');
 
-//returns the content type of a given file extension if known, else returns false
-function GetContentType(ext) {
-    switch(ext) {
+function GetContentType(ext) { //returns the content type of a given file extension if known, else returns false
+    switch(ext) { //switch case looks at file extension
         case ".js":
             return "text/javascript";
         case ".html":
@@ -25,9 +24,8 @@ function GetContentType(ext) {
     }
 }
 
-//adds the correct directory prefixes to the filepath in order to find files within the hierarchy
-function ModifyFilepath (filepath, ext) {
-    switch(ext) {
+function ModifyFilepath (filepath, ext) { //adds the correct directory prefixes to the filepath in order to find files within the hierarchy
+    switch(ext) { //switch case looks at file extension
         case ".js":
             filepath = "js/" + filepath;
             break;
@@ -55,27 +53,20 @@ function ModifyFilepath (filepath, ext) {
     return filepath;
 }
 
-//takes a relative filepath, finds content type and makes sure filepath is correct, then writes content
-exports.ServeFile = (filepath, res) => {
-    //get content type
-    var contentType = GetContentType(path.extname(filepath));
-    //modify filepath to match directory structure
-    filepath = ModifyFilepath(filepath, path.extname(filepath));
-    //if content type isn't recognized, return error
-    if (!contentType) {
+exports.ServeFile = (filepath, res) => { //takes a relative filepath, finds content type and makes sure filepath is correct, then writes content
+    var contentType = GetContentType(path.extname(filepath)); //get content type
+    filepath = ModifyFilepath(filepath, path.extname(filepath)); //modify filepath to match directory structure
+    if (!contentType) { //if content type isn't recognized, return error
         res.writeHead(404, {'Content-Type': 'text/plain'});
         res.write('Error: Unidentified file type.');
         res.end();
-    //else file type was recognized, attempt to read and serve file
-    } else {
+    } else { //else file type was recognized, attempt to read and serve file
         fs.readFile(filepath, function(err, data) {
-            //if file can't be read, serve error
-            if (err) {
+            if (err) { //if file can't be read, serve error
                 res.writeHead(404, {'Content-Type': 'text/plain'});
                 res.write('Error: Unable to read file.');
                 res.end();
-            //else serve file
-            } else {
+            } else { //else serve file
                 res.writeHead(200, {'Content-Type': contentType });
                 res.write(data);
                 res.end();
