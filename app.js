@@ -4,7 +4,7 @@ var url = require('url');
 var utils = require('./server-utils.js');
 var fileServer = require('./fileserve.js');
 var nodeRetriever = require("./node-retriever.js");
-//var ambRetriever = require("./ambiance-retriever.js");
+var ambRetriever = require("./ambiance-retriever.js");
 
 function ProcessQuery(query, res) { //handle queries
     switch (query["request"]) { //switch case that looks at the request portion of the query
@@ -12,10 +12,13 @@ function ProcessQuery(query, res) { //handle queries
             nodeRetriever.GetNextNodes(res, query["text"]); //get the child nodes of the user selected parent
             break;
         case "UpdateBackground": //if the request is UpdateBackground
-            //write a function for this- should be in ambretriever
+            //write a function for this- should be in ambiance-retriever.js
             break;
         case "UpdateSound": //if the request is UpdateSound
-            //write a function for this- should be in ambretriever
+            //write a function for this- should be in ambiance-retriever.js
+            break;
+        case "AddNewNode":
+            nodeRetriever.AddNewNode(res, query["node"]); //run the code to add a new node
             break;
         default: //otherwise there's an unrecognized request
             var errObj = {message: "Query not supported"}; //create error msg

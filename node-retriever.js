@@ -22,6 +22,14 @@ function LoadAllNodes(filepath) { //gets all the nodes from the txt file databas
     return finalNodes; //return all the nodes
 }
 
+exports.AddNewNode = (res, newNode) => {
+    //turn the new node into text
+    //append the new node to the text file OR add it to the database, depending on implementation
+    //return the node via ajax to the client so it can be added to the entry page
+    var sendObj = {nodes: newNode}; //make an object (sendObj) to send that contains the child nodes of our selected parent
+    utils.sendJSONObj(res, 200, sendObj); //send a JSON obj to client with sendObj
+}
+
 exports.GetNextNodes = (res, prevNodeText) => { //gets the child nodes of a given node based on that node's text content
     //probably use sql database to store nodes, for now gonna use a text file
     //get the children of this node

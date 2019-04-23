@@ -1,23 +1,29 @@
 var utils = import("./client-utils.js");
 
-var textDiv;
-var form;
-var formDiv;
-
-//var sampleNode = {"id": 1, "parent": 0, "type": "user", "text": "I spin around in a circle.", "location": "field"};
+var textDiv = undefined;
+var form = undefined;
+var formDiv = undefined;
+var passField = undefined;
+var nextID = undefined;
 
 function init() {
+    nextID = 0;
     textDiv = document.getElementById("text");
-    form = document.getElementById("pass");
+    form = document.getElementById("password");
+    passField = document.getElementById("pass");
     formDiv = document.getElementById("form");
     textDiv.innerHTML = "";
-    document.getElementById("sub").addEventListener("click", checkPassword);
+    form.addEventListener("submit", checkPassword);
     return true;
 }
 
 function addNodeInfo(nodes) { //spawns the entry form for adding new nodes
-    for (let node of nodes) {
+    for (let node of nodes["nodes"]) {
         var nodePar = document.createElement("div"); //create paragraph elem to hold node info
+        if (node.id > nextID) { //check if the next available id needs to be incremented
+            nextID = node.id; //set id equal to larger, taken, id
+            nextID++; //increment next id by 1
+        }
         nodePar.innerHTML = "<p>id: " + node.id + "</p><p>parent: " + node.parent + "</p><p>type: " + node.type + "</p><p>text: " + node.text + "</p><p>location: " + node.location + "</p>"; //add node info to parent elem
         textDiv.appendChild(nodePar); //add paragraph elem to text div
         nodePar.addEventListener("click", addChildNodeForm); //add event listener to create a new child when node is clicked
@@ -27,8 +33,9 @@ function addNodeInfo(nodes) { //spawns the entry form for adding new nodes
 
 function addChildNodeForm() { //creates a form to add a child node
     var newForm = document.createElement("form"); //create a form
-    var idField = document.createElement("input"); //create an id field for new node
-    idField.setAttribute("type", "text"); //set to text field
+    var idField = document.createElement("p"); //create an id for new node
+    idField.innerHTML = nextID; //set text to next available id
+    nextID++; //increment next id
     var parentField = document.createElement("input"); //create an parent id field for new node
     parentField.setAttribute("type", "text"); //set to text field
     parentField.setAttribute("value", this.childNodes[0].split(" ")[1]); //set default value to clicked node's id
@@ -49,13 +56,31 @@ function addChildNodeForm() { //creates a form to add a child node
     newForm.appendChild(locationField);
     newForm.appendChild(submitButton);
     
+    newForm.addEventListener("submit", enterChildNode); //add submit event listener to form
+    
     textDiv.appendChild(newForm); //append form to text div
+    
+    return true;
+}
+
+function enterChildNode() {
+    var fields = this.childNodes; //first five are attributes, last is submit button
+    var newNode = {}; //create empty node
+    newNode.id = fields[0].innerHTML; //add assigned id
+    newNode.parent = fields[1].value; //add user-entered node characteristics from form
+    newNode.type = fields[2].value;
+    newNode.text = fields[3].value;
+    newNode.location = fields[4].value;
+    this.parent.removeChild(this); //remove this form from the page
+    utils.SendXML({request: "AddNewNode", node: newNode}, addNodeInfo); //send new node to server
+    //^^this functionality isn't fully implemented yet on the server side
+    return true;
 }
 
 function checkPassword() { //checks the password
-    if (form.value == "dundermifflin") { //if the password is correct
+    if (passField.value == "dundermifflin") { //if the password is correct
         formDiv.innerHTML = ""; //remove the password field
-        utils.sendXML({request: "GetNextNodes", text: "\ALL"}, addNodeInfo); //get all the nodes, then add to page
+        utils.SendXML({request: "GetNextNodes", text: "\ALL"}, addNodeInfo); //get all the nodes, then add to page
     } else {
         textDiv.innerHTML = "<p>Password incorrect, please try again.</p>"; //display incorrect password message
     }
