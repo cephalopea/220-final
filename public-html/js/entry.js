@@ -62,7 +62,11 @@ function addChildNodeForm() { //creates a form to add a child node
     
     newForm.addEventListener("click", enterChildNode); //add submit event listener to form
     
-    textDiv.appendChild(newForm); //append form to text div
+    var formContainer = document.createElement("div");
+    formContainer.classList.addClass("nodeDesc");
+    formContainer.appendChild(newForm);
+    
+    textDiv.appendChild(formContainer); //append form to text div
     
     return true;
 }

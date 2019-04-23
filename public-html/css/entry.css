@@ -64,4 +64,5 @@ ul {
     display: flex;
     flex-direction: row;
     border-style: solid;
+    justify-content: space-evenly;
 }
