@@ -1,5 +1,5 @@
-var utils = import("./client-utils.js");
-var loc = import("./location-handler.js");
+import * as utils from "./client-utils.js";
+import * as loc from "./location-handler.js";
 
 function SelectOption() { //handles selecting a node
     this.classList.remove("user"); //remove the user class from the selected node
@@ -63,7 +63,7 @@ function UpdateSound(soundObj) { //updates the page sound
 
 function init() { //runs when the page loads
     //uncomment these next two lines and remove the rest once database/txt file is implemented
-    //authNodes = utils.SendXML(LoadNodes, {"request": "GetNextNodes", "text": "\ROOT"});
+    //authNodes = utils.SendXML(LoadNodes, {"request": "GetNextNodes", "text": "ROOT"});
     //loc.CheckLocation(authNode);
     var userNodes = document.getElementsByClassName("user");
     for (let node of userNodes) {

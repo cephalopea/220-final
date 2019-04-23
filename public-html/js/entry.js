@@ -1,4 +1,4 @@
-var utils = import("./client-utils.js");
+import * as utils from "./client-utils.js";
 
 var textDiv = undefined;
 var form = undefined;
@@ -13,7 +13,7 @@ function init() {
     passField = document.getElementById("pass");
     formDiv = document.getElementById("form");
     textDiv.innerHTML = "";
-    form.addEventListener("submit", checkPassword);
+    document.getElementById("sub").addEventListener("click", checkPassword);
     return true;
 }
 
@@ -28,6 +28,7 @@ function addNodeInfo(nodes) { //spawns the entry form for adding new nodes
         textDiv.appendChild(nodePar); //add paragraph elem to text div
         nodePar.addEventListener("click", addChildNodeForm); //add event listener to create a new child when node is clicked
     }
+    console.log("got here");
     return true;
 }
 
@@ -47,7 +48,8 @@ function addChildNodeForm() { //creates a form to add a child node
     locationField.setAttribute("type", "text"); //set to text field
     parentField.setAttribute("value", this.childNodes[4].split(" ")[1]); //set default value to clicked node's location
     var submitButton = document.createElement("input"); //create a submit button for new node
-    submitButton.setAttribute("type", "submit"); //set to submit button
+    submitButton.setAttribute("type", "button"); //set to button
+    submitButton.setAttribute("value", "Add Node"); //set to button
     
     newForm.appendChild(idField); //append all child elems to new form
     newForm.appendChild(parentField);
@@ -56,7 +58,7 @@ function addChildNodeForm() { //creates a form to add a child node
     newForm.appendChild(locationField);
     newForm.appendChild(submitButton);
     
-    newForm.addEventListener("submit", enterChildNode); //add submit event listener to form
+    newForm.addEventListener("click", enterChildNode); //add submit event listener to form
     
     textDiv.appendChild(newForm); //append form to text div
     
@@ -64,7 +66,7 @@ function addChildNodeForm() { //creates a form to add a child node
 }
 
 function enterChildNode() {
-    var fields = this.childNodes; //first five are attributes, last is submit button
+    var fields = this.parent.childNodes; //first five are attributes, last is submit button
     var newNode = {}; //create empty node
     newNode.id = fields[0].innerHTML; //add assigned id
     newNode.parent = fields[1].value; //add user-entered node characteristics from form
@@ -80,8 +82,9 @@ function enterChildNode() {
 function checkPassword() { //checks the password
     if (passField.value == "dundermifflin") { //if the password is correct
         formDiv.innerHTML = ""; //remove the password field
-        utils.SendXML({request: "GetNextNodes", text: "\ALL"}, addNodeInfo); //get all the nodes, then add to page
+        utils.SendXML({request: "GetNextNodes", text: "ALL"}, addNodeInfo); //get all the nodes, then add to page
     } else {
+        console.log("oops")
         textDiv.innerHTML = "<p>Password incorrect, please try again.</p>"; //display incorrect password message
     }
     return true;

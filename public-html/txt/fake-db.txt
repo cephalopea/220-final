@@ -1,2 +1,1 @@
-next line is an example of structure: please delete it (and this) before running code
-id=1,parent=0,type=user,text=I spin around in a circle.,location=field
+id=1\\parent=0\\type=user\\text=I spin around in a circle.\\location=field

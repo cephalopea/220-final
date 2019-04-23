@@ -1,14 +1,14 @@
 function QueryToString(obj) { //convert a query to a string so it can be sent to server
     var queryString = ""; //create str to return
     var keyz = Object.keys(obj); //get keys from obj
-    for (key of keyz) { //loop through keys and add key/val pairs to string
+    for (let key of keyz) { //loop through keys and add key/val pairs to string
         queryString += key + "=" + obj[key] + "&";
     }
     return queryString.slice(0,-1); //remove unnecessary ampersand from end and return
 }
 
 //TODO: figure out how to export stuff on clientside, exports isn't working
-exports.SendXML = (request, callback) => { //send an xml request to the server and then run the callback function
+export function SendXML(request, callback) { //send an xml request to the server and then run the callback function
     var xmlhttp = new XMLHttpRequest(); //create ajax request
     xmlhttp.onload = callback; //run the given callback function when ajax request is received
     xmlhttp.onerror = function() {alert("Error with XML");}; //if there's an error, alert

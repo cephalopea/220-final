@@ -36,11 +36,11 @@ exports.GetNextNodes = (res, prevNodeText) => { //gets the child nodes of a give
     //should have attributes: id (a unique int), type (user or auth), text (the text displayed to the user), and parent (parent's unique int)
     var nodes = LoadAllNodes(txtDB); //get all the nodes
     var nodesToLoad = undefined; //create a variable to hold the child nodes and set it explicitly to undefined for now
-    if (prevNodeText == "\ROOT") { //if the "previous node" is just \ROOT
+    if (prevNodeText == "ROOT") { //if the "previous node" is just \ROOT
         nodesToLoad = nodes.filter(node => { //filter all the nodes and assign the returned nodes to nodesToLoad
             return(node["id"] == 0); //just get the one with id=0 (the initial node)
         });
-    } else if (prevNodeText == "\ALL") { //this is the entry script trying to load all the nodes
+    } else if (prevNodeText == "ALL") { //this is the entry script trying to load all the nodes
         nodesToLoad = nodes; //load all the nodes
     } else { //otherwise we have a real node loaded for the user
         var prevNode = nodes.filter(node => { //filter all the nodes and assign the returned nodes to prevNode
