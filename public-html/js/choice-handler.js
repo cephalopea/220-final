@@ -28,7 +28,8 @@ function RemoveUnderline() { //removes an underline from an element
     this.style.textDecoration = "none";
 }
 
-function LoadNodes(nodesToLoad) { //load received nodes into the html page
+function LoadNodes(data) { //load received nodes into the html page
+    var nodesToLoad = JSON.parse(data.srcElement.responseText);
     var body = document.getElementsByTagName("body"); //get the body of the page
     var authNode = nodesToLoad.filter(node => { //filter the nodes and get only the auth node, save it in authNodes
         return (node["type"] == "auth");
@@ -51,14 +52,6 @@ function LoadNodes(nodesToLoad) { //load received nodes into the html page
         elem.addEventListener("mouseout", RemoveUnderline);
     }
     return authNode; //return the authnode
-}
-
-function UpdateBackground(backgroundObj) { //updates the page background
-    
-}
-
-function UpdateSound(soundObj) { //updates the page sound
-    
 }
 
 function init() { //runs when the page loads

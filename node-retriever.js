@@ -1,19 +1,19 @@
 var utils = require("./server-utils.js");
 var fs = require("fs");
 //var sampleNode = {"id": 1, "parent": 0, "type": "user", "text": "I spin around in a circle.", "location": "field"};
-var txtDB = "/publichtml/txt/fake-db.txt";
+var txtDB = "public-html/txt/fake-db.txt";
 
 function LoadAllNodes(filepath) { //gets all the nodes from the txt file database
     //assumes txt file is formatted with each node on a newline, commas between key/val pairs, and = between key and value (no colon)
     //sample input line:
-    //id=1\\parent=0\\type=user\\text=I spin around in a circle.\\location=field
+    //id=1|parent=0|type=user|text=I spin around in a circle.|location=field
     var finalNodes = []; //holds all the nodes retrieved from the database/txt doc
     var nodeDoc = fs.readFileSync(filepath).toString(); //read everything in the txt doc and convert to string
     var addNodes = nodeDoc.split("\n"); //split the string at newlines (split into nodes)
-    for (let node in addNodes) { //for each string that represents a node
+    for (let node of addNodes) { //for each string that represents a node
         var finishedNode = {}; //create empty dict for finished node
-        var nodeBits = node.split("\\"); //split the nodes at the \\ symbol used to separate key/val pairs
-        for (let trait in nodeBits) { //for each key/val pair in the node
+        var nodeBits = node.split("|"); //split the nodes at the | symbol used to separate key/val pairs
+        for (let trait of nodeBits) { //for each key/val pair in the node
             var keyval = trait.split("="); //divide the key and the value at the = symbol
             finishedNode[keyval[0]] = keyval[1]; //add the key and the value to the node object (finishedNode)
         }
