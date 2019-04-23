@@ -32,6 +32,8 @@ exports.GetNextNodes = (res, prevNodeText) => { //gets the child nodes of a give
         nodesToLoad = nodes.filter(node => { //filter all the nodes and assign the returned nodes to nodesToLoad
             return(node["id"] == 0); //just get the one with id=0 (the initial node)
         });
+    } else if (prevNodeText == "\ALL") { //this is the entry script trying to load all the nodes
+        nodesToLoad = nodes; //load all the nodes
     } else { //otherwise we have a real node loaded for the user
         var prevNode = nodes.filter(node => { //filter all the nodes and assign the returned nodes to prevNode
             return(node["text"] == prevNodeText); //return the node whose text matches the text the user picked
