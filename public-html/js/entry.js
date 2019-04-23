@@ -21,6 +21,7 @@ function addNodeInfo(data) { //spawns the entry form for adding new nodes
     var nodes = JSON.parse(data.srcElement.responseText);
     for (let node of nodes["nodes"]) {
         var nodePar = document.createElement("div"); //create paragraph elem to hold node info
+        nodePar.classList.add("nodeDesc");
         if (node.id > nextID) { //check if the next available id needs to be incremented
             nextID = node.id; //set id equal to larger, taken, id
             nextID++; //increment next id by 1
@@ -47,7 +48,7 @@ function addChildNodeForm() { //creates a form to add a child node
     textField.setAttribute("type", "text"); //set to text field
     var locationField = document.createElement("input"); //create a location field for new node
     locationField.setAttribute("type", "text"); //set to text field
-    parentField.setAttribute("value", this.childNodes[4].innerHTML.split(" ")[1]); //set default value to clicked node's location
+    locationField.setAttribute("value", this.childNodes[4].innerHTML.split(" ")[1]); //set default value to clicked node's location
     var submitButton = document.createElement("input"); //create a submit button for new node
     submitButton.setAttribute("type", "button"); //set to button
     submitButton.setAttribute("value", "Add Node"); //set to button
