@@ -1,11 +1,28 @@
 import * as utils from "./client-utils.js";
+import * as gameCode from "./choice-handler.js";
 
-function checkPassword() { //checks the password
-    if (passField.value == "dundermifflin") { //if the password is correct
-        formDiv.innerHTML = ""; //remove the password field
-        utils.SendXML({request: "GetNextNodes", text: "ALL"}, addNodeInfo); //get all the nodes, then add to page
+//assume all this code is garbage
+
+function getSave() { //checks the password
+    inputUser = document.getElementById("user").value;
+    inputPassword = document.getElementById("pass").value;
+    utils.SendXML({request: "CheckPassword", user: inputUser, password: inputPassword}, loadSave); //get all the nodes, then add to page
+}
+
+function loadSave(data) {
+    var save = JSON.parse(data.srcElement.responseText);
+    if (save["isValidSave"]) {
+        utils.SendNewPageXML("game.html", {request: "LoadSaveFile", savePoint: save["node"], isNewGame: "false"});
     } else {
-        textDiv.innerHTML = "<p>Password incorrect, please try again.</p>"; //display incorrect password message
+        document.getElementById("passMessage").innerHTML =  "Password incorrect, please try again."; //display incorrect password message
     }
-    return true;
+}
+
+function newGame(data) {
+    utils.SendNewPageXML("game.html", {request: "GetNextNodes", text: "ROOT" isNewGame: "true"});
+}
+
+function init() {
+    document.getElementById("loadSave").addEventListener("click", getSave);
+    document.getElementById("startNewGame").addEventListener("click", newGame);
 }

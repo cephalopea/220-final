@@ -54,8 +54,20 @@ function LoadNodes(data) { //load received nodes into the html page
     return authNode; //return the authnode
 }
 
-function init() { //runs when the page loads
-    authNodes = utils.SendXML({"request": "GetNextNodes", "text": "ROOT"} LoadNodes);
+
+//TODO: figure out how to load save file
+function LoadSavedGame(data) {
+    var saveData = JSON.parse(data.srcElement.responseText);
+}
+
+//reconfigure init to deal with loading saved games
+function init(data) { //runs when the page loads
+    var initObj = JSON.parse(data.srcElement.responseText);
+    if (initObj["isNewGame"]) { //if this is a new game, load nodes from the root
+        authNodes = utils.SendXML({"request": "GetNextNodes", "text": "ROOT"} LoadNodes);
+    } else {
+        
+    }
     loc.CheckLocation(authNode);
     for (let node of userNodes) {
         node.addEventListener("click", SelectOption);
