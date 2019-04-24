@@ -57,8 +57,10 @@ exports.AddNewNode = (res, newNode) => {
         if (err) {
             utils.sendJSONObj(res, 500, {error: "Error adding new node to database"}); //send error msg to client
         } else {
-            if (nodes != undefined) { //if we already have nodes loaded to this file
+            if (nodes != "EMPTY") { //if we already have nodes loaded to this file
                 nodes.push(newNode); //add the new node to the collection of all nodes already loaded
+            } else {
+                nodes = [newNode];
             }
             utils.sendJSONObj(res, 200, {nodes: [newNode]}); //send a JSON obj to client with new node
         }
