@@ -5,14 +5,17 @@
         <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
     </head>
     <body>
-        <p class="auth">You wake in an empty field.<br>What do you do?</p>
-        <p class="history">Investigate my surroundings.</p>
-        <p class="auth" id="curr">You see a deer.</p>
-        <p class="user">I yell at the deer.</p>
-        <p class="user">I dance a little jig.</p>
-        <p class="user">I attempt to pet the deer.</p>
-        <script src="choice-handler.js" type="module"></script>
+        <div id="password">
+            <h3 id="passMessage">To load a save file, please enter your login info.</h3>
+            <input type="text" id="user"><br>
+            <input type="password" id="pass"><br>
+            <button id="loadSave" value="Load Save File"></button>
+        </div>
+        <div id="newgame">
+            <h3>To start a new game, click here.</h3>
+            <button id="startNewGame" value="New Game"></button>
+        </div>
         <script src="client-utils.js" type="module"></script>
-        <script src="location-handler.js" type="module"></script>
+        <script src="homescreen.js" type="module"></script>
     </body>
 </html>
