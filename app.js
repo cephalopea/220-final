@@ -18,7 +18,7 @@ function ProcessQuery(query, res) { //handle queries
             //write a function for this- should be in ambiance-retriever.js
             break;
         case "AddNewNode":
-            nodeRetriever.AddNewNode(res, query["node"]); //run the code to add a new node
+            nodeRetriever.AddNewNode(res, query); //run the code to add a new node
             break;
         default: //otherwise there's an unrecognized request
             var errObj = {message: "Query not supported"}; //create error msg

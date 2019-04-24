@@ -7,7 +7,6 @@ function QueryToString(obj) { //convert a query to a string so it can be sent to
     return queryString.slice(0,-1); //remove unnecessary ampersand from end and return
 }
 
-//TODO: figure out how to export stuff on clientside, exports isn't working
 export function SendXML(request, callback) { //send an xml request to the server and then run the callback function
     var xmlhttp = new XMLHttpRequest(); //create ajax request
     xmlhttp.onload = callback; //run the given callback function when ajax request is received
