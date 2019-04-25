@@ -10,6 +10,7 @@ exports.test = () => { //i had to put something here so the compiler doesn't yel
 
 exports.updateBackground = function(res, location) { // location is the location of the story. eg. 'field'
     var file_name = location + ".jpeg";
+    console.log(file_name);
     serve_static_file(file_name, res);
 }
 
@@ -21,12 +22,14 @@ exports.updateSound = function(res, location) {
 function serve_static_file(file, res) {
     var rs = fs.createReadStream(file);
     var ct = content_type_for_path(file);
+    console.log(ct);
     res.writeHead(200, { "Content-Type" : ct });
     rs.on('error', (e) => {
         res.writeHead(404, { "Content-Type" : "application/json" });
         var out = { error: "not_found",
                     message: "'" + file + "' not found" };
         res.end(JSON.stringify(out) + "\n");
+        console.log("error");
         return;
     });
     rs.on('readable', () => {
@@ -34,8 +37,10 @@ function serve_static_file(file, res) {
         if (d) {
             res.write(d);
         }
+        console.log("reading");
     });
     rs.on('end', () => {
+        console.log("end")
         res.end();  // we're done!!!
     });
 }
