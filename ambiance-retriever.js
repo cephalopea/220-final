@@ -1,4 +1,5 @@
 var utils = require("./server-utils.js");
+var fileserver = require("./fileserve");
 var fs = require("fs");
 var path = require('path');
 //var sampleNode = {"id": 1, "parent": 0, "type": "user", "text": "I spin around in a circle.", "location": "field"};
@@ -10,19 +11,19 @@ exports.test = () => { //i had to put something here so the compiler doesn't yel
 
 exports.updateBackground = function(res, location) { // location is the location of the story. eg. 'field'
     var file_name = location + ".jpeg";
-    console.log(file_name);
-    serve_static_file(file_name, res);
+    console.log("file name" + file_name);
+    fileserver.ServeFile(file_name, res);
 }
 
 exports.updateSound = function(res, location) {
     var path = location;
     
 }
-
+/* 
 function serve_static_file(file, res) {
     var rs = fs.createReadStream(file);
     var ct = content_type_for_path(file);
-    console.log(ct);
+    console.log("content type: " + ct);
     res.writeHead(200, { "Content-Type" : ct });
     rs.on('error', (e) => {
         res.writeHead(404, { "Content-Type" : "application/json" });
@@ -56,3 +57,4 @@ function content_type_for_path (file) {
         default: return 'text/plain';
     }
 }
+ */
