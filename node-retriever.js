@@ -71,25 +71,14 @@ exports.AddNewNode = (res, newNode) => {
 exports.GetNextNodes = (res, query) => { //gets the child nodes of a given node based on that node's text content
     //probably use database to store nodes, for now gonna use a text file
     //get the children of this node
-    var prevNodeText = query["text"]; //get text of prev node
+    var prevNode = query["parent"]; //get text of prev node
     if (nodes == undefined) { //if the nodes aren't loaded already
         nodes = LoadAllNodes(txtDB); //get all the nodes
     }
     var nodesToLoad = undefined; //create a variable to hold the child nodes and set it explicitly to undefined for now
-    if (prevNodeText == "ROOT") { //if the "previous node" is just ROOT
-        nodesToLoad = nodes.filter(node => { //filter all the nodes and assign the returned nodes to nodesToLoad
-            return(node["parent"] == "ROOT"); //just get the one with id=0 (the initial node)
-        });
-    } else if (prevNodeText == "ALL") { //this is the entry script trying to load all the nodes
-        nodesToLoad = nodes; //load all the nodes
-    } else { //otherwise we have a real node loaded for the user
-        var prevNode = nodes.filter(node => { //filter all the nodes and assign the returned nodes to prevNode
-            return(node["text"] == prevNodeText); //return the node whose text matches the text the user picked
-        });
-        nodesToLoad = nodes.filter(node => { //filter all the nodes and assigned the returned nodes to nodesToLoad
-            return(node["parent"] == prevNode["id"]); //return all the nodes whose parent is prevNode
-        });
-    }
+    nodesToLoad = nodes.filter(node => { //filter all the nodes and assign the returned nodes to nodesToLoad
+        return(node["parent"] == prevNode); //get the nodes whose parent matches the parent passed in
+    });
     var sendObj = {nodes: nodesToLoad}; //make an object (sendObj) to send that contains the child nodes of our selected parent
     utils.sendJSONObj(res, 200, sendObj); //send a JSON obj to client with sendObj
 }
