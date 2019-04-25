@@ -67,6 +67,8 @@ exports.ServeFile = (filepath, res) => { //takes a relative filepath, finds cont
                 res.write('Error: Unable to read file.');
                 res.end();
             } else { //else serve file
+                console.log("content type: " + contentType);
+                console.log("filepath: " + filepath);
                 res.writeHead(200, {'Content-Type': contentType });
                 res.write(data);
                 res.end();
