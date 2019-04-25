@@ -8,7 +8,7 @@ exports.test = () => { //i had to put something here so the compiler doesn't yel
     return true;
 }
 
-exports.updateBackground = function(res, location) {
+exports.updateBackground = function(res, location) { // location is the location of the story. eg. 'field'
     var file_name = location + ".jpeg";
     serve_static_file(file_name, res);
 }
