@@ -5,7 +5,8 @@ var location = undefined;
 function UpdateBackground(data) { //change the background image file to the one sent by the server
     console.log("update background received: " + data);
     if (this.status == 200) { //if successfully received a response
-        var photoName = JSON.parse(data.srcElement.responseText).files; //parses JSON string to an object. Gets response object element/property 'files'
+        console.log("response: " + this.responseText);
+        var photoName = JSON.parse(this.responseText).files; //parses JSON string to an object. Gets response object element/property 'files'
         var divObj = document.getElementById("image"); 
         //add photos to html interface
         var elem = document.createElement("img");
