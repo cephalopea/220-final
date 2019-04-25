@@ -1,8 +1,6 @@
 import * as utils from "./client-utils.js";
 import * as loc from "./location-handler.js";
 
-var currentUser;
-
 function SelectOption() { //handles selecting a node
     this.classList.remove("user"); //remove the user class from the selected node
     this.classList.add("history"); //add the history class to the selected node
@@ -52,18 +50,13 @@ function LoadNodes(nodesToLoad) { //load received nodes into the html page
         elem.addEventListener("mouseover", AddUnderline);
         elem.addEventListener("mouseout", RemoveUnderline);
     }
+    loc.checkLocation(authNode);
     return authNode; //return the authnode
 }
 
-
-//TODO: figure out how to load save file
-export function LoadSavedGame(data) {
+function init() {
+    utils.SendXML({"request": "GetNextNodes", "text": "ROOT"}, LoadNodes); //send a request to the server to load the next set of child nodes
     
 }
 
-export function LoadNewGame(data) {
-    var gameData = JSON.parse(data.srcElement.responseText);
-    currentUser = gameData["user"];
-    authNode = LoadNodes(gameData["nodes"]);
-    loc.CheckLocation(authNode);
-}
+init()

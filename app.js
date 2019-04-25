@@ -22,12 +22,6 @@ function ProcessQuery(query, res) { //handle queries
         case "AddNewNode":
             nodeRetriever.AddNewNode(res, query); //run the code to add a new node
             break;
-        case "LoadSaveFile":
-            break;
-        case "AddNewUser":
-            break;
-        case "CheckUser":
-            break;
         default: //otherwise there's an unrecognized request
             var errObj = {message: "Query not supported"}; //create error msg
             utils.sendJSONObj(res, 500, errObj); //send error msg via json

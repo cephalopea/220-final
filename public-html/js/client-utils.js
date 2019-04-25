@@ -15,16 +15,3 @@ export function SendXML(request, callback) { //send an xml request to the server
     xmlhttp.open("GET", ("http://localhost:8080/?" + request)); //add request to url query string
     xmlhttp.send(); //send ajax request
 }
-
-export function SendNewPageXML(page, request, callback) {
-    var xmlhttp = new XMLHttpRequest(); //create ajax request
-    xmlhttp.onload = callback;
-    xmlhttp.onerror = function() {alert("Error with XML");}; //if there's an error, alert
-    if (request != {}) {
-        request = "?" + QueryToString(request); //request to list albums through url
-    } else {
-        request = "";
-    }
-    xmlhttp.open("GET", ("http://localhost:8080/" + page + request)); //add page and request to url query string
-    xmlhttp.send(); //send ajax request
-}
