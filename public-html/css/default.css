@@ -15,7 +15,7 @@ a:active {
 }
 
 body {
-    background-color: black;
+    background-color: green;
     padding-left: 5vw;
     padding-right: 5vw;
     padding-top: 5vh;
@@ -49,6 +49,7 @@ h6 {
 p {
     padding-top: 2vh;
     padding-bottom: 2vh;
+    line-height: 1.5;
 }
 
 li {
@@ -62,6 +63,11 @@ ul {
 * {
     color: white;
     font-family: "Press Start 2P", serif;
+    text-shadow:
+		-1px -1px 0 #000,
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+		1px 1px 0 #000;
 }
 
 /*above are html tags, below are custom classes*/
