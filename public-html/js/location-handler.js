@@ -2,8 +2,7 @@ import * as utils from "./client-utils.js"
 
 var location = undefined;
 
-function UpdateBackground(data) { //change the background image file to the one sent by the server
-    console.log("update background received: " + data);
+function UpdateBackground() { //change the background image file to the one sent by the server
     if (this.status == 200) { //if successfully received a response
         console.log("response: " + this.responseText);
         var photoName = JSON.parse(this.responseText).files; //parses JSON string to an object. Gets response object element/property 'files'
@@ -16,10 +15,11 @@ function UpdateBackground(data) { //change the background image file to the one 
     }     
     else { alert("Error loading photos");} //if did not successfully receive a response
 }
-
+/*
 function UpdateSound(soundObj) { //change the sound file to the one sent by the server
     
 }
+*/
 
 export function CheckLocation(currNode) { //figure out if the location has changed
     if (location != currNode["location"]) { //if the location stored doesn't equal the new location
