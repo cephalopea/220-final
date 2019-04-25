@@ -30,8 +30,7 @@ function RemoveUnderline() { //removes an underline from an element
     this.style.textDecoration = "none";
 }
 
-function LoadNodes(data) { //load received nodes into the html page
-    var nodesToLoad = JSON.parse(data.srcElement.responseText);
+function LoadNodes(nodesToLoad) { //load received nodes into the html page
     var body = document.getElementsByTagName("body"); //get the body of the page
     var authNode = nodesToLoad.filter(node => { //filter the nodes and get only the auth node, save it in authNodes
         return (node["type"] == "auth");
@@ -58,21 +57,13 @@ function LoadNodes(data) { //load received nodes into the html page
 
 
 //TODO: figure out how to load save file
-function LoadSavedGame() {
-    //need to set the authnode variable before this function ends, init is going to do stuff with it after this function returns
+export function LoadSavedGame(data) {
+    
 }
 
-//reconfigure init to deal with loading saved games
-function init(data) { //runs when the page loads
-    var initObj = JSON.parse(data.srcElement.responseText);
-    currentUser = initObj["user"];
-    var authNode;
-    if (initObj["isNewGame"]) { //if this is a new game, load nodes from the root
-        authNode = utils.SendXML({"request": "GetNextNodes", "text": "ROOT"} LoadNodes);
-    } else {
-        authnode = LoadSavedGame(initObj["save"]);
-    }
+export function LoadNewGame(data) {
+    var gameData = JSON.parse(data.srcElement.responseText);
+    currentUser = gameData["user"];
+    authNode = LoadNodes(gameData["nodes"]);
     loc.CheckLocation(authNode);
 }
-
-init(); //run init to set things up

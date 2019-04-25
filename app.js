@@ -9,7 +9,7 @@ var ambRetriever = require("./ambiance-retriever.js");
 function ProcessQuery(query, res) { //handle queries
     switch (query["request"]) { //switch case that looks at the request portion of the query
         case "GetNextNodes": //if the request is GetNextNodes
-            nodeRetriever.GetNextNodes(res, query["text"]); //get the child nodes of the user selected parent
+            nodeRetriever.GetNextNodes(res, query); //get the child nodes of the user selected parent
             break;
         case "UpdateBackground": //if the request is UpdateBackground
             ambRetriever.updateBackground(res, query["location"]);
@@ -21,6 +21,12 @@ function ProcessQuery(query, res) { //handle queries
             break;
         case "AddNewNode":
             nodeRetriever.AddNewNode(res, query); //run the code to add a new node
+            break;
+        case "LoadSaveFile":
+            break;
+        case "AddNewUser":
+            break;
+        case "CheckUser":
             break;
         default: //otherwise there's an unrecognized request
             var errObj = {message: "Query not supported"}; //create error msg

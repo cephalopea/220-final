@@ -67,10 +67,10 @@ exports.AddNewNode = (res, newNode) => {
     })   
 }
 
-exports.GetNextNodes = (res, prevNodeText) => { //gets the child nodes of a given node based on that node's text content
+exports.GetNextNodes = (res, query) => { //gets the child nodes of a given node based on that node's text content
     //probably use database to store nodes, for now gonna use a text file
     //get the children of this node
-    //should have attributes: id (a unique int), type (user or auth), text (the text displayed to the user), and parent (parent's unique int)
+    var prevNodeText = query["text"]; //get text of prev node
     if (nodes == undefined) { //if the nodes aren't loaded already
         nodes = LoadAllNodes(txtDB); //get all the nodes
     }
@@ -89,6 +89,6 @@ exports.GetNextNodes = (res, prevNodeText) => { //gets the child nodes of a give
             return(node["parent"] == prevNode["id"]); //return all the nodes whose parent is prevNode
         });
     }
-    var sendObj = {nodes: nodesToLoad}; //make an object (sendObj) to send that contains the child nodes of our selected parent
+    var sendObj = {nodes: nodesToLoad, user: query["user"]}; //make an object (sendObj) to send that contains the child nodes of our selected parent
     utils.sendJSONObj(res, 200, sendObj); //send a JSON obj to client with sendObj
 }
