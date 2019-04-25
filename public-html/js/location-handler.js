@@ -6,12 +6,7 @@ function UpdateBackground() { //change the background image file to the one sent
     if (this.status == 200) { //if successfully received a response
         console.log("response: " + this.responseText);
         var photoName = this.responseText; //parses JSON string to an object. Gets response object element/property 'files'
-        var divObj = document.getElementById("image"); 
-        //add photos to html interface
-        var elem = document.createElement("img");
-        elem.setAttribute("src", photoName); 
-        elem.setAttribute("alt", "Flower"); 
-        divObj.appendChild(elem);
+        document.body.style.backgroundImage = "url("+photoName+")";
     }     
     else { alert("Error loading photos");} //if did not successfully receive a response
 }
