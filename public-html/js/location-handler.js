@@ -1,4 +1,4 @@
-var utils = import("./client-utils.js");
+import * as utils from "./client-utils.js"
 
 var location = undefined;
 
@@ -19,7 +19,7 @@ function UpdateSound(soundObj) { //change the sound file to the one sent by the 
     
 }
 
-function CheckLocation(currNode) { //figure out if the location has changed
+export function CheckLocation(currNode) { //figure out if the location has changed
     if (location != currNode["location"]) { //if the location stored doesn't equal the new location
         location = currNode["location"]; //set the stored location to equal the new one
         utils.SendXML({"request": "UpdateBackground", "location": location}, UpdateBackground); //send a request for files and then update the background

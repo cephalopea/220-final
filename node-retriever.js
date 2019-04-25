@@ -90,6 +90,6 @@ exports.GetNextNodes = (res, query) => { //gets the child nodes of a given node 
             return(node["parent"] == prevNode["id"]); //return all the nodes whose parent is prevNode
         });
     }
-    var sendObj = {nodes: nodesToLoad, user: query["user"]}; //make an object (sendObj) to send that contains the child nodes of our selected parent
+    var sendObj = {nodes: nodesToLoad}; //make an object (sendObj) to send that contains the child nodes of our selected parent
     utils.sendJSONObj(res, 200, sendObj); //send a JSON obj to client with sendObj
 }

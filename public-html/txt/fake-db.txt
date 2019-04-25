@@ -1,1 +1,1 @@
-id=0|parent=ROOT|type=|text=|location=
+id=0|parent=ROOT|type=auth|text=stuff|location=field
