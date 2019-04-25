@@ -17,7 +17,7 @@ function SelectOption() { //handles selecting a node
             elems[0].parentNode.removeChild(elems[0]); //remove the first one from the page
         }
     }
-    utils.SendXML({"request": "GetNextNodes", "text": this.innerHTML}, LoadNodes); //send a request to the server to load the next set of child nodes
+    utils.SendXML({"request": "GetNextNodes", "parent": this.id}, LoadNodes); //send a request to the server to load the next set of child nodes
 }
 
 function AddUnderline() { //adds an underline to an element
@@ -38,6 +38,7 @@ function LoadNodes(data) { //load received nodes into the html page
     var userNodes = nodesToLoad.filter(node => { //filter the nodes and get only the user nodes, save them in userNodes
         return (node["type"] == "user");
     })
+    console.log("user nodes: " + userNodes);
     var textRep = document.createElement("p"); //create a paragraph element to hold authnode text
     textRep.innerHTML = authNode["text"]; //set inner html of p elem to authnode text
     textRep.classList.add("auth"); //add auth class to p elem
@@ -45,18 +46,19 @@ function LoadNodes(data) { //load received nodes into the html page
     for (let node of userNodes) { //do the same basic thing for all the user nodes
         var textRep = document.createElement("p"); //create p elem
         textRep.innerHTML = node["text"]; //add node text to p elem
+        textRep.setAttribute("id", node["id"]);
         textRep.classList.add("user"); //add user class to p elem
         body.appendChild(textRep); //append the elem to the body
-        elem.addEventListener("click", SelectOption); //add the three event listeners
-        elem.addEventListener("mouseover", AddUnderline);
-        elem.addEventListener("mouseout", RemoveUnderline);
+        textRep.addEventListener("click", SelectOption); //add the three event listeners
+        textRep.addEventListener("mouseover", AddUnderline);
+        textRep.addEventListener("mouseout", RemoveUnderline);
     }
-    loc.CheckLocation(authNode);
+    //loc.CheckLocation(authNode);
     return authNode; //return the authnode
 }
 
 function init() {
-    utils.SendXML({"request": "GetNextNodes", "text": "ROOT"}, LoadNodes); //send a request to the server to load the next set of child nodes
+    utils.SendXML({"request": "GetNextNodes", "parent": "ROOT"}, LoadNodes); //send a request to the server to load the next set of child nodes
     
 }
 
