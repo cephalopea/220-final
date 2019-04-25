@@ -2,12 +2,13 @@ var utils = import("./client-utils.js");
 
 var location = undefined;
 
-function UpdateBackground(backgroundObj) { //change the background image file to the one sent by the server
-    return backgroundObj["image"];
+function UpdateBackground() { //change the background image file to the one sent by the server
+    
+    document.body.style.backgroundImage = "url()";
 }
 
 function UpdateSound(soundObj) { //change the sound file to the one sent by the server
-    return soundObj["soundfile"]
+    
 }
 
 function CheckLocation(currNode) { //figure out if the location has changed

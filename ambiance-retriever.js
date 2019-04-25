@@ -8,15 +8,15 @@ exports.test = () => { //i had to put something here so the compiler doesn't yel
     return true;
 }
 
-exports.updateBackground = function(location) {
-    var path = location;
+exports.updateBackground = function(res, location) {
+    var file_name = location + ".jpeg";
+    serve_static_file(file_name, res);
 }
 
-exports.updateSound = function(location) {
+exports.updateSound = function(res, location) {
+    var path = location;
     
 }
-
-
 
 function serve_static_file(file, res) {
     var rs = fs.createReadStream(file);

@@ -12,9 +12,11 @@ function ProcessQuery(query, res) { //handle queries
             nodeRetriever.GetNextNodes(res, query["text"]); //get the child nodes of the user selected parent
             break;
         case "UpdateBackground": //if the request is UpdateBackground
+            ambRetriever.updateBackground(res, query["location"]);
             //write a function for this- should be in ambiance-retriever.js
             break;
         case "UpdateSound": //if the request is UpdateSound
+            ambRetriever.updateSound(res, query["location"]);
             //write a function for this- should be in ambiance-retriever.js
             break;
         case "AddNewNode":
