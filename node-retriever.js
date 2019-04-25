@@ -2,6 +2,7 @@ var utils = require("./server-utils.js");
 var fs = require("fs");
 
 var txtDB = "public-html/txt/fake-db.txt";
+var userDB = "public-html/txt/save-keys.txt";
 var nodes = undefined;
 
 function StringifyNode(node) { //returns nodes like this: id=1|parent=0|type=user|text=I spin around in a circle.|location=field
@@ -41,6 +42,41 @@ function LoadAllNodes(filepath) { //gets all the nodes from the txt file databas
         finalNodes = "EMPTY";
     }
     return finalNodes; //return all the nodes (or nothing, if there's nothing)
+}
+
+exports.CheckUser(res, query) {
+    var users = LoadAllNodes(userDB); //get all the users
+    if (users == "EMPTY") { //if there are no users, this username doesn't exist, so there is no save file, so start at the root
+        if (query["isNewGame"]) { //if this is a new game request
+            var newUserString = StringifyNode({user: query["user"], pass: query["pass"], lastNode: "ROOT"}); //stringify user info
+            fs.appendFile(userDB, newUserString, (err) => { //append the new user to the text file OR add it to the database, depending on implementation 
+                if (err) { //if there's an error
+                    utils.sendJSONObj(res, 500, {error: "Error adding new user to database"}); //send error msg to client
+                } else { //otherwise things are good
+                    utils.sendJSONObj(res, 200, {userExists: true, user: query["user"], lastNode: "ROOT"}) //send a blank save file
+                }
+            })   
+        } else { //this isn't a new game, looking for a save that doesn't exist
+            utils.sendJSONObj(res, 200, {userExists: false, user: query["user"]}) //send message that user doesn't exist
+        }
+    } else { //there are users
+        var thisUser = users.filter(user => {
+            return (user == query["user"]);
+        })
+        if (!thisUser) { //if this user doesn't exist
+            if (query["isNewGame"]) { //creating a new save, all good
+                fs.appendFile(userDB, newUserString, (err) => { //append the new user to the text file OR add it to the database, depending on implementation 
+                    if (err) { //if there's an error
+                        utils.sendJSONObj(res, 500, {error: "Error adding new user to database"}); //send error msg to client
+                    } else { //otherwise things are good
+                        utils.sendJSONObj(res, 200, {userExists: true, user: query["user"], lastNode: "ROOT"}) //send a blank save file
+                    }
+                })   
+            } else { //this isn't a new game, looking for a save that doesn't exist
+                utils.sendJSONObj(res, 200, {userExists: false, user: query["user"]}) //send message that user doesn't exist
+            }
+        }
+    }
 }
 
 exports.AddNewNode = (res, newNode) => {

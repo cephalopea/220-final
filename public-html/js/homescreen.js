@@ -6,13 +6,13 @@ import * as gameCode from "./choice-handler.js";
 function GetSave() { //checks the password
     inputUser = document.getElementById("user").value; //get the username
     inputPassword = document.getElementById("pass").value; //get the password
-    utils.SendXML({request: "CheckPassword", user: inputUser, password: inputPassword}, LoadSave); //send to server to check if user exists
+    utils.SendXML({request: "CheckUser", user: inputUser, pass: inputPassword, isNewGame: false}, LoadSave); //send to server to check if user exists
 }
 
 function LoadSave(data) { //load a previous save file given by the user
-    var save = JSON.parse(data.srcElement.responseText); //parse server response
-    if (save["isValidSave"]) { //if the save exists
-        utils.SendNewPageXML("game.html", {request: "LoadSaveFile", save: save["node"], isNewGame: "false"}); //load it in choice-handler
+    var info = JSON.parse(data.srcElement.responseText); //parse server response
+    if (info["userExists"]) { //if the save exists
+        utils.SendNewPageXML("game.html", {request: "LoadGame", user: info["user"], lastNode: info["node"]}, gameCode.LoadGame); //load it in choice-handler
     } else {
         document.getElementById("passMessage").innerHTML =  "Save file not found, please try again."; //display incorrect password message
     }
@@ -52,20 +52,21 @@ function NewGame() {
 function CheckIfUserFree() {
     var user = document.getElementById("userField").value;
     var pass = document.getElementById("passField").value;
-    utils.SendXML({request: "CheckUser", user: user, pass: pass}, VerifyNewUser);
+    utils.SendXML({request: "CheckUser", user: user, pass: pass, isNewGame: true}, VerifyNewUser);
 }
 
 function VerifyNewUser(data) {
-    var info = JSON.parse(data.srcElement.responseText);
-    if (info["success"]) {
-        //new user was created, load new game
-        utils.SendNewPageXML("game.html", {request: "GetNextNodes", user: info["user"]}, gameCode.LoadNewGame);
-    } else {
-        document.getElementById("newgameMessage").innerHTML = "This username is already taken. Please try another one."
+    var info = JSON.parse(data.srcElement.responseText); //parse the response text
+    if (!info["userExists"]) { //username was free
+        utils.SendNewPageXML("game.html", {request: "LoadGame", user: info["user"], lastNode: "ROOT"}, gameCode.LoadGame); //load the game
+    } else { //username was taken
+        document.getElementById("newgameMessage").innerHTML = "This username is already taken. Please try another one." //tell user
     }
 }
 
 function init() {
-    document.getElementById("loadSave").addEventListener("click", GetSave);
+    document.getElementById("loadSave").addEventListener("click", GetSave); //add event listeners
     document.getElementById("startNewGame").addEventListener("click", NewGame);
 }
+
+init();
