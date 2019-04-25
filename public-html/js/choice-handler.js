@@ -53,7 +53,7 @@ function LoadNodes(data) { //load received nodes into the html page
         textRep.addEventListener("mouseover", AddUnderline);
         textRep.addEventListener("mouseout", RemoveUnderline);
     }
-    //loc.CheckLocation(authNode);
+    loc.CheckLocation(authNode);
     return authNode; //return the authnode
 }
 

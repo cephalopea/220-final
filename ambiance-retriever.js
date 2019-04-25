@@ -19,7 +19,7 @@ exports.updateSound = function(res, location) {
 
 function uploadFileNames(location, res) {
     var file_name = location + ".jpeg"
-    res.writeHead(status, {"Content-Type": "application/json"}); //write the head with status and content type
+    res.writeHead(200, {"Content-Type": "application/json"}); //write the head with status and content type
     res.write(file_name); //write the stringified json obj
     res.end(); //end
 }
