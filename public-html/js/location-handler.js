@@ -8,7 +8,7 @@ function UpdateBackground() { //change the background image file to the one sent
         var divObj = document.getElementById("image"); 
         //add photos to html interface
         var elem = document.createElement("img");
-        elem.setAttribute("src", "images/"+photoName); 
+        elem.setAttribute("src", photoName); 
         elem.setAttribute("alt", "Flower"); 
         divObj.appendChild(elem);
     }     
