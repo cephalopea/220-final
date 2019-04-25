@@ -1,6 +1,8 @@
 import * as utils from "./client-utils.js";
 import * as loc from "./location-handler.js";
 
+var currentUser;
+
 function SelectOption() { //handles selecting a node
     this.classList.remove("user"); //remove the user class from the selected node
     this.classList.add("history"); //add the history class to the selected node
@@ -56,24 +58,21 @@ function LoadNodes(data) { //load received nodes into the html page
 
 
 //TODO: figure out how to load save file
-function LoadSavedGame(data) {
-    var saveData = JSON.parse(data.srcElement.responseText);
+function LoadSavedGame() {
+    //need to set the authnode variable before this function ends, init is going to do stuff with it after this function returns
 }
 
 //reconfigure init to deal with loading saved games
 function init(data) { //runs when the page loads
     var initObj = JSON.parse(data.srcElement.responseText);
+    currentUser = initObj["user"];
+    var authNode;
     if (initObj["isNewGame"]) { //if this is a new game, load nodes from the root
-        authNodes = utils.SendXML({"request": "GetNextNodes", "text": "ROOT"} LoadNodes);
+        authNode = utils.SendXML({"request": "GetNextNodes", "text": "ROOT"} LoadNodes);
     } else {
-        
+        authnode = LoadSavedGame(initObj["save"]);
     }
     loc.CheckLocation(authNode);
-    for (let node of userNodes) {
-        node.addEventListener("click", SelectOption);
-        node.addEventListener("mouseover", AddUnderline);
-        node.addEventListener("mouseout", RemoveUnderline);
-    }
 }
 
 init(); //run init to set things up

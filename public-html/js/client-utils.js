@@ -16,9 +16,8 @@ export function SendXML(request, callback) { //send an xml request to the server
     xmlhttp.send(); //send ajax request
 }
 
-export function SendNewPageXML(page, request, callback) {
+export function SendNewPageXML(page, request) {
     var xmlhttp = new XMLHttpRequest(); //create ajax request
-    xmlhttp.onload = callback; //run the given callback function when ajax request is received
     xmlhttp.onerror = function() {alert("Error with XML");}; //if there's an error, alert
     if (request != {}) {
         request = "?" + QueryToString(request); //request to list albums through url
