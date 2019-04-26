@@ -46,6 +46,9 @@ function ModifyFilepath (filepath, ext) { //adds the correct directory prefixes 
         case ".csv":
             filepath = "csv/" + filepath;
             break;
+        case ".mp3":
+            filepath = "sounds/" + filepath;
+            break;
         default:
             return filepath;
     }

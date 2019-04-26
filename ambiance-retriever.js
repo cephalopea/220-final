@@ -14,12 +14,19 @@ exports.updateBackground = function(res, location) { // location is the location
 }
 
 exports.updateSound = function(res, location) {
-    var path = location;
+    uploadSoundFileNames(location, res);
 }
 
 function uploadFileNames(location, res) {
     var file_name = location + ".jpeg"
     res.writeHead(200, {"Content-Type": "application/json"}); //write the head with status and content type
-    res.write(file_name); //write the stringified json obj
+    res.write(file_name);
+    res.end(); //end
+}
+
+function uploadSoundFileNames(location, res) {
+    var file_name = location + ".mp3"
+    res.writeHead(200, {"Content-Type": "application/json"}); //write the head with status and content type
+    res.write(file_name);
     res.end(); //end
 }
