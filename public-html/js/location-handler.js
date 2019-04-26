@@ -1,3 +1,5 @@
+//images from search.creativecommons.org
+//sound files from freesound.org
 import * as utils from "./client-utils.js"
 
 var location = undefined;
@@ -14,7 +16,7 @@ function UpdateBackground() { //change the background image file to the one sent
 function UpdateSound(soundObj) { //change the sound file to the one sent by the server
     if (this.status == 200) {
         var audio_file_name = this.responseText; 
-        //next few lines from here:
+        //next if/else adapted from here:
         //https://stackoverflow.com/questions/20071328/how-to-stop-and-play-multiple-sounds-in-html5-without-overlapping-them
         if (audio === null) {  
             audio = new Audio(audio_file_name);  
