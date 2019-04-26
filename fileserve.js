@@ -19,6 +19,8 @@ function GetContentType(ext) { //returns the content type of a given file extens
             return "text/plain";
         case ".csv":
             return "text/csv";
+        case ".mp3":
+            return "audio/mp3";
         default:
             return false;
     }
