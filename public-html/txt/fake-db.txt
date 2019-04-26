@@ -23,5 +23,5 @@ id=21|parent=17|type=user|text=Swim west.|location=ocean
 id=22|parent=17|type=user|text=Swim east.|location=ocean
 id=23|parent=17|type=user|text=Swim north.|location=ocean
 id=24|parent=21|type=auth|text=You go west, hoping to spot land. But you never do, and eventually you succumb to exhaustion. You drown.|location=drowned
-id=25|parent=22|type=auth|text=You go north, hoping to spot land. Unfortunately, the sharks get to you first.|location=drowned
-id=26|parent=23|type=auth|text=You go east, hoping to spot land. After what feels like forever, you spy a small blip on the horizon. Spurned on by hope, you push forward... and eventually make it to the beach. For a few minutes, you simply lie in the sand and let the waves wash over you. Everything hurts, your hair is stiff with sea salt, and you've got no supplies. But at least you're alive. SUCCESS!|location=beach
+id=25|parent=22|type=auth|text=You go east, hoping to spot land. Unfortunately, the sharks get to you first.|location=drowned
+id=26|parent=23|type=auth|text=You go north, hoping to spot land. After what feels like forever, you spy a small blip on the horizon. Spurned on by hope, you push forward... and eventually make it to the beach. For a few minutes, you simply lie in the sand and let the waves wash over you. Everything hurts, your hair is stiff with sea salt, and you've got no supplies. But at least you're alive. SUCCESS!|location=beach
