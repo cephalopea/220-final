@@ -14,6 +14,7 @@ function UpdateSound(soundObj) { //change the sound file to the one sent by the 
     if (this.status == 200) {
         var audio_file_name = this.responseText; 
         var audio = new Audio(audio_file_name);
+        audio.loop = true;
         audio.play();
     }
     else {alert("Error loading sounds");} //if did not successfully receive a response
