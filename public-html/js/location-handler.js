@@ -1,7 +1,6 @@
 import * as utils from "./client-utils.js"
 
 var location = undefined;
-var audio;
 
 function UpdateBackground() { //change the background image file to the one sent by the server
     if (this.status == 200) { //if successfully received a response
@@ -14,8 +13,9 @@ function UpdateBackground() { //change the background image file to the one sent
 function UpdateSound(soundObj) { //change the sound file to the one sent by the server
     if (this.status == 200) {
         var audio_file_name = this.responseText; 
-        audio = new Audio(audio_file_name);
+        var audio = new Audio(audio_file_name);
         audio.loop = true;
+        audio.autoplay = true;
         audio.play();
     }
     else {alert("Error loading sounds");} //if did not successfully receive a response
