@@ -43,15 +43,22 @@ function LoadNodes(data) { //load received nodes into the html page
     textRep.innerHTML = authNode["text"]; //set inner html of p elem to authnode text
     textRep.classList.add("auth"); //add auth class to p elem
     body.appendChild(textRep); //append the p elem to the body of the page
-    for (let node of userNodes) { //do the same basic thing for all the user nodes
-        var textRep = document.createElement("p"); //create p elem
-        textRep.innerHTML = node["text"]; //add node text to p elem
-        textRep.setAttribute("id", node["id"]);
-        textRep.classList.add("user"); //add user class to p elem
-        body.appendChild(textRep); //append the elem to the body
-        textRep.addEventListener("click", SelectOption); //add the three event listeners
-        textRep.addEventListener("mouseover", AddUnderline);
-        textRep.addEventListener("mouseout", RemoveUnderline);
+    if (userNodes.length > 0) {
+        for (let node of userNodes) { //do the same basic thing for all the user nodes
+            var textRep = document.createElement("p"); //create p elem
+            textRep.innerHTML = node["text"]; //add node text to p elem
+            textRep.setAttribute("id", node["id"]);
+            textRep.classList.add("user"); //add user class to p elem
+            body.appendChild(textRep); //append the elem to the body
+            textRep.addEventListener("click", SelectOption); //add the three event listeners
+            textRep.addEventListener("mouseover", AddUnderline);
+            textRep.addEventListener("mouseout", RemoveUnderline);
+        }
+    } else {
+        var tryAgainLink = document.createElement("a");
+        tryAgainLink.innerHTML = "Try again?";
+        tryAgainLink.setAttribute("href", "/game.html");
+        body.appendChild(tryAgainLink);
     }
     loc.CheckLocation(authNode);
     return authNode; //return the authnode

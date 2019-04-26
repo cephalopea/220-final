@@ -1,25 +1,38 @@
 a:link {
-
+    text-align: center;
+    display: block;
+    color: green;
 }
 
 a:visited {
-
+    text-align: center;
+    display: block;
+    color: green;
 }
 
 a:hover {
-
+    text-align: center;
+    display: block;
+    color: darkgreen;
 }
 
 a:active {
-
+    text-align: center;
+    display: block;
+    color: green;
 }
 
 body {
-    background-color: green;
+    background-color: gray;
     padding-left: 5vw;
     padding-right: 5vw;
     padding-top: 5vh;
     padding-bottom: 5vh;
+    background-attachment: fixed;
+	background-position: center;
+	background-size: cover;
+    background-blend-mode: overlay;
+    background-repeat: no-repeat;
 }
 
 h1 {
