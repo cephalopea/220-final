@@ -13,7 +13,7 @@ function UpdateBackground() { //change the background image file to the one sent
     else { alert("Error loading photos");} //if did not successfully receive a response
 }
 
-function UpdateSound(soundObj) { //change the sound file to the one sent by the server
+function UpdateSound() { //change the sound file to the one sent by the server
     if (this.status == 200) {
         var audio_file_name = this.responseText; 
         //next if/else adapted from here:
