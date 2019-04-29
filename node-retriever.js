@@ -69,7 +69,6 @@ exports.AddNewNode = (res, newNode) => {
 }
 
 exports.GetNextNodes = (res, query) => { //gets the child nodes of a given node based on that node's text content
-    //probably use database to store nodes, for now gonna use a text file
     //get the children of this node
     var prevNode = query["parent"]; //get text of prev node
     if (nodes == undefined) { //if the nodes aren't loaded already
