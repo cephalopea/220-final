@@ -44,3 +44,4 @@ function ServeStuff(req, res) { //serves stuff
 
 var server = http.createServer(ServeStuff); //creates a server
 server.listen(8080); //listens for an incoming request from the client
+console.log("Server running on port 8080");

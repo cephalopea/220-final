@@ -74,10 +74,17 @@ exports.GetNextNodes = (res, query) => { //gets the child nodes of a given node 
     if (nodes == undefined) { //if the nodes aren't loaded already
         nodes = LoadAllNodes(txtDB); //get all the nodes
     }
+    console.log(nodes);
     var nodesToLoad = undefined; //create a variable to hold the child nodes and set it explicitly to undefined for now
-    nodesToLoad = nodes.filter(node => { //filter all the nodes and assign the returned nodes to nodesToLoad
-        return(node["parent"] == prevNode); //get the nodes whose parent matches the parent passed in
-    });
+    if (nodes == "EMPTY") {
+        nodesToLoad = ["EMPTY"];
+    } else if (query["text"] == "ALL") {
+        nodesToLoad = nodes;
+    } else {
+        nodesToLoad = nodes.filter(node => { //filter all the nodes and assign the returned nodes to nodesToLoad
+            return(node["parent"] == prevNode); //get the nodes whose parent matches the parent passed in
+        });
+    }
     var sendObj = {nodes: nodesToLoad}; //make an object (sendObj) to send that contains the child nodes of our selected parent
     utils.sendJSONObj(res, 200, sendObj); //send a JSON obj to client with sendObj
 }
